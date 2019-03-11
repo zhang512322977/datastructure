@@ -10,7 +10,8 @@ package org.buptdavid.datastructure.sort;
  */
 public class MergeSort implements ISort {
 
-	public void sort(int[] array) {
+	@Override
+    public void sort(int[] array) {
 		mergeSort(array, 0, array.length - 1);
 	}
 	

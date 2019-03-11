@@ -10,7 +10,8 @@ package org.buptdavid.datastructure.sort;
  */
 public class QuickSort implements ISort {
 
-	public void sort(int[] array) {
+	@Override
+    public void sort(int[] array) {
 		quickSort(array, 0, array.length - 1);
 	}
 

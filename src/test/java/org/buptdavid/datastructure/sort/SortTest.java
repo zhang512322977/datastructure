@@ -2,6 +2,7 @@ package org.buptdavid.datastructure.sort;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,15 +18,36 @@ import org.junit.Test;
 public class SortTest {
 	int[] array = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	ISort sort;
-	
+
+	public int[] initData(int len)
+	{
+		int[] array  = new int[len];
+		for (int i = 0; i < array.length; i++) {
+			array[i] = new Integer( Math.round(Math.random() * 100)  + "");
+		}
+		return array;
+	}
+
+	public void pringArray(int[] array)
+	{
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + "   " );
+		}
+		System.out.println();
+	}
+
 	@Before
 	public void before(){
-		int[] arrayIni = {10, 9, 8, 7, 6, 5, 4, 4, 1, -1};
-		for(int i = 0; i < array.length; i++){
-			array[i] = arrayIni[i];
-		}
+		array = initData(10);
+		pringArray(array);
 	}
-	
+	@Test
+	public void testChangeItem()
+	{
+		sort = new BubbleSort();
+		sort.changeItem(array,0,1);
+	}
+
 	@Test
 	public void testBubbleSort(){
 		sort = new BubbleSort();
@@ -74,4 +96,11 @@ public class SortTest {
 			Assert.assertTrue(array[i] <= array[i + 1]);
 		}
 	}
+
+	@After
+	public void after()
+	{
+		pringArray(array);
+	}
+
 }

@@ -5,10 +5,18 @@ package org.buptdavid.datastructure.sort;
  * @author weijielu
  */
 public interface ISort {
-	
+
+
 	/**
 	 * 对数组array进行升序排序
 	 * @param array
 	 */
 	public void sort(int[] array);
+
+	public default  void changeItem(int[] array,int i,int j)
+	{
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
 }
