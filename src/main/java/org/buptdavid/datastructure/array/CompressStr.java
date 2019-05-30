@@ -19,10 +19,8 @@ public class CompressStr {
             while(j < s.length() && s.charAt(j) == s.charAt(i)){
                 j++;
             }
-            
             sb.append(s.charAt(i));
             sb.append(j - i);
-            
             i = j - 1;
         }
         
@@ -30,7 +28,7 @@ public class CompressStr {
         return sbString.length() <= s.length()? sbString.toString() : s;
     }
     
-    @Test
+
     public void test(){
         String s1 = "aabcccaaaa";
         String expectedS1 = "a2b1c3a4";
@@ -48,5 +46,10 @@ public class CompressStr {
         Assert.assertEquals(expectedS2, compress(s2));
         Assert.assertEquals(expectedS3, compress(s3));
         Assert.assertEquals(expectedS4, s4);
+    }
+
+
+    public static void main(String[] args) {
+        new CompressStr().test();
     }
 }
