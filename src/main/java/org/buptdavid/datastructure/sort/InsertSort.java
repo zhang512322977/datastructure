@@ -60,12 +60,12 @@ public class InsertSort implements ISort {
 	{
 		int len = array.length;
 		//遍历的次数
-		for (int i = 1; i < len-1; i++) {
+		for (int i = 1; i < len; i++) {
 			//判断是否比前一个小，是的话就交换
 			for (int j = i; j >0; j--) {
 				if (array[j]<array[j-1])
 				{
-					changeItem(array,i,j-1);
+					changeItem(array,j,j-1);
 				}
 
 			}

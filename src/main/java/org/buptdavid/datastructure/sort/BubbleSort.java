@@ -10,18 +10,28 @@ package org.buptdavid.datastructure.sort;
  */
 public class BubbleSort implements ISort {
 
+	int type = 0;
+	public BubbleSort(){}
+	public BubbleSort(int type)
+	{
+		this.type = type;
+	}
 	@Override
 	public void sort(int[] array) {
-		sort1(array);
+		if(type == 2)
+		{
+			sort2(array);
+		}else{
+			sort1(array);
+		}
 	}
 
 	private void sort1(int[] array)
 	{
-		int temp = 0;
 		for(int i = 0; i < array.length; i++){
 			for(int j = 0; j < array.length - 1; j++){
 				if(array[j] > array[j + 1]){
-					changeItem(array,i,j+1);
+					changeItem(array,j,j+1);
 				}
 			}
 		}
@@ -37,7 +47,7 @@ public class BubbleSort implements ISort {
 			for (int j = 1; j <len - i; j++) {
 				if(array[j] < array[j-1])
 				{
-					changeItem(array,i,j-1);
+					changeItem(array,j,j-1);
 				}
 			}
 		}

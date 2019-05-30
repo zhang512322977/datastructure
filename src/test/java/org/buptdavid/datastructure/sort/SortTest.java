@@ -50,7 +50,7 @@ public class SortTest {
 
 	@Test
 	public void testBubbleSort(){
-		sort = new BubbleSort();
+		sort = new BubbleSort(2);
 		sort.sort(array);
 		validate();
 	}
@@ -79,7 +79,7 @@ public class SortTest {
 	
 	@Test
 	public void testInsertSort(){
-		sort = new InsertSort();
+		sort = new InsertSort(2);
 		sort.sort(array);
 		validate();
 	}
