@@ -11,9 +11,9 @@ public interface MyIterable<T> {
     default void forEach(MyConsumer<? super T> action)
     {
         Objects.requireNonNull(action);
-        for (T t:this) {
+       /* for (T t:this) {
             action.accept(t);
-        }
+        }*/
     }
     default MySpliterator<T> spliterator() {
         return MySpliterators.spliteratorUnknownSize(myIterator(), 0);

@@ -23,7 +23,7 @@ public class ArrayTest {
 
     public static void main(String[] args) {
 
-        //数组的初始化   --数组初始化之后就有默认值
+       /* //数组的初始化   --数组初始化之后就有默认值
         System.out.println("数组的初始化...");
         int a[] = new int[10];
 
@@ -42,9 +42,26 @@ public class ArrayTest {
         a[0] = 1;
         //查询
         System.out.println(a[0]);
+*/
 
+        String enc =encodeMsisdn("31201147956","5539fae9a36ba9a70553a0054c147805cdcda2079e4f");
+        System.out.println(enc);
+        String ph = encodeMsisdn(enc,"5539fae9a36ba9a70553a0054c147805cdcda2079e4f");
+        System.out.println(ph);
 
     }
 
-
+    public static String encodeMsisdn(String msisdn, String atmosid) {
+        if (msisdn != null && atmosid != null && atmosid.length() != 0) {
+            try {
+                long flag = Long.valueOf(msisdn);
+                long b = 10000000000L - (long)atmosid.charAt(0);
+                return String.valueOf(flag ^ b);
+            } catch (NumberFormatException var6) {
+                return msisdn;
+            }
+        } else {
+            return msisdn;
+        }
+    }
 }
