@@ -22,18 +22,28 @@ public class HttpServletRequstImpl implements HttpServletRequest
 
     private String protocol;
 
-    private String version;
-
     private String requrl;
+
+    private String body;
+
+    public void setBody(String body)
+    {
+        this.body = body;
+    }
+
+    public String getRequrl()
+    {
+        return requrl;
+    }
+
+    public String getBody()
+    {
+        return body;
+    }
 
     public void setProtocol(String protocol)
     {
         this.protocol = protocol;
-    }
-
-    public void setVersion(String version)
-    {
-        this.version = version;
     }
 
     public void setRequrl(String requrl)
@@ -139,8 +149,7 @@ public class HttpServletRequstImpl implements HttpServletRequest
     }
 
     @Override
-    public BufferedReader getReader()
-        throws IOException
+    public BufferedReader getReader() throws IOException
     {
         return null;
     }
@@ -245,7 +254,7 @@ public class HttpServletRequstImpl implements HttpServletRequest
     @Override
     public String getHeader(String name)
     {
-        return null;
+        return headers.get(name);
     }
 
     @Override
@@ -293,7 +302,7 @@ public class HttpServletRequstImpl implements HttpServletRequest
     @Override
     public String getQueryString()
     {
-        return null;
+        return body;
     }
 
     @Override

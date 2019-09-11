@@ -23,9 +23,7 @@ public class ServletContextImpl
     {
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("web.xml");
 
-        //建立DocumentBuilderFactor，用于获得DocumentBuilder对象：
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        //2.建立DocumentBuidler：
         DocumentBuilder builder = null;
         try
         {
@@ -58,17 +56,15 @@ public class ServletContextImpl
 
     public HttpServlet getServlet(String path)
     {
-        Set<String> keySet = httpServletMap.keySet();
 
+        Set<String> keySet = httpServletMap.keySet();
         for (String key : keySet)
         {
             if(key.equals(path))
             {
                 return httpServletMap.get(key);
             }
-
         }
-
         return httpServletMap.get("/*");
     }
     private void dealServlet(Document doc)
@@ -126,7 +122,6 @@ public class ServletContextImpl
                     servletConfigInfo.addInitParams(key,value);
                 }
             }
-
             servletConfigHashMap.put(servletConfigInfo.getServletName(),servletConfigInfo);
 
         }

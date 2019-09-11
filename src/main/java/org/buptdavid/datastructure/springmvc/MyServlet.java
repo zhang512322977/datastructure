@@ -14,8 +14,10 @@ public class MyServlet extends HttpServlet
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException
     {
+
+        String body = req.getQueryString();
        ServletOutputStream outputStream = resp.getOutputStream();
-        outputStream.write(("<html>ok</html>").getBytes());
+        outputStream.write((body).getBytes());
         outputStream.flush();
 
        //resp.sendError(200,"hello");

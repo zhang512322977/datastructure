@@ -30,7 +30,8 @@ public class Server {
                 try (Socket socket = serverSocket.accept();
                      InputStream is = socket.getInputStream();
                      OutputStream os = socket.getOutputStream();
-                ) {
+                )
+                {
                     dealReauest(is, os,sc);
                 }
             }
@@ -49,6 +50,7 @@ public class Server {
         HttpServletResponse response = new HttpServletResponseImpl(new ServletOutputStreamImpl(os));
 
         HttpServlet servlet = servletContext.getServlet(request.getServletPath());
+
         servlet.service(request,response);
 
     }
@@ -73,7 +75,6 @@ public class Server {
         for (int j = 0; j < i; j++) {
             content.append((char)buffer[j]);
         }
-        //System.out.println(content);
         HttpServletRequstImpl httpRequst = new HttpServletRequstImpl();
         Map<String,String> headers = new HashMap<>();
         String[] request = content.toString().split("\n");
@@ -103,19 +104,17 @@ public class Server {
             sb.append(request[j]);
         }
 
-        httpRequst.setAttribute("body",sb);
+        httpRequst.setBody(sb.toString());
         if(request.length!=0)
         {
             String resource = request[0];
             String[] resources = resource.split(" ");
             String type = resources[0];
             String path = resources[1];
-            String vsersion = resources[2];
             httpRequst.setProtocol(type);
             httpRequst.setRequrl(path);
         }
         return  httpRequst;
-
     }
 
     private static String parsePath(String path) {

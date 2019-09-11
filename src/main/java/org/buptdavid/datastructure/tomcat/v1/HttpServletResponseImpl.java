@@ -23,7 +23,6 @@ public class HttpServletResponseImpl implements HttpServletResponse
         this.outputStream = outputStream;
         respHeaders.put("Content-Type","text/html;charset=utf-8");
         respHeaders.put("Server","Apache-Coyote/1.1");
-
     }
 
     public void setOutputStream(ServletOutputStream outputStream)
@@ -160,13 +159,22 @@ public class HttpServletResponseImpl implements HttpServletResponse
     @Override
     public String getCharacterEncoding()
     {
-        return null;
+        String contentType = respHeaders.get("Content-Type");
+
+        String temp[] = contentType.split(";");
+
+        if(temp.length==2)
+        {
+            return temp[1];
+        }
+        return respHeaders.get("");
+
     }
 
     @Override
     public String getContentType()
     {
-        return null;
+        return respHeaders.get("Content-Type");
     }
 
     @Override
@@ -191,7 +199,7 @@ public class HttpServletResponseImpl implements HttpServletResponse
             headers.append("\n");
         }
         outputStream.write(headers.toString().getBytes());
-        outputStream.write("\n\n".getBytes());
+        outputStream.write("\n".getBytes());
         return outputStream;
     }
 
