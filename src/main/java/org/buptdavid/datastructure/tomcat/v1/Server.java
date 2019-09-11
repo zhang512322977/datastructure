@@ -1,7 +1,14 @@
 package org.buptdavid.datastructure.tomcat.v1;
 
+import org.buptdavid.datastructure.springmvc.DispatcherServlet;
 import org.buptdavid.datastructure.tomcat.v1.util.FileUtil;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -12,6 +19,8 @@ import java.util.Map;
 public class Server {
     public static void main(String[] args) {
         ServerSocket serverSocket = null;
+        ServletContextImpl sc = new ServletContextImpl();
+        sc.init();
         try
         {
             serverSocket = new ServerSocket(8182);
@@ -22,7 +31,7 @@ public class Server {
                      InputStream is = socket.getInputStream();
                      OutputStream os = socket.getOutputStream();
                 ) {
-                    dealReauest(is, os);
+                    dealReauest(is, os,sc);
                 }
             }
         }catch(Exception e)
@@ -31,30 +40,17 @@ public class Server {
         }
     }
 
-    private static void dealReauest(InputStream is, OutputStream os) throws Exception {
+
+
+    private static void dealReauest(InputStream is, OutputStream os, ServletContextImpl servletContext) throws Exception {
         //解析请求数据
-        HttpRequst httpRequst = parseV3(is);
-        String data = deal(httpRequst);
-        sendData(data,os);
-    }
+        HttpServletRequest request = parseV3(is);
+        //构造响应字段
+        HttpServletResponse response = new HttpServletResponseImpl(new ServletOutputStreamImpl(os));
 
-    private static String deal(HttpRequst httpRequst) {
-        String type = httpRequst.getProtocol();
-        String path = httpRequst.getRequrl();
-        String data = "";
-        if("GET".equalsIgnoreCase(type))
-        {
-            data = doGet(path);
-        }
-        if("PSOT".equalsIgnoreCase(type))
-        {
-            data = doPost(path); 
-        }
-        return data;
-    }
+        HttpServlet servlet = servletContext.getServlet(request.getServletPath());
+        servlet.service(request,response);
 
-    private static String doPost(String path) {
-        return "";
     }
 
     private static String doGet(String path) {
@@ -64,21 +60,13 @@ public class Server {
     }
 
 
-    private static void sendData(String data, OutputStream os) throws Exception{
-        os.write("HTTP/1.1 200 OK\n".getBytes());
-        os.write("Content-Type:text/html;charset=utf-8\n".getBytes());
-        os.write("Server:Apache-Coyote/1.1\n".getBytes());
-        os.write("\n\n".getBytes());
-        os.write(data.getBytes("utf-8"));
-        os.flush();
-    }
 
     /**
      * 获取请求字符数据
      * @param is
      * @throws Exception
      */
-    private static HttpRequst parseV3(InputStream is)throws Exception {
+    private static HttpServletRequest parseV3(InputStream is)throws Exception {
         StringBuffer content = new StringBuffer(2048);
         byte[] buffer =  new byte[2048];
         int i = is.read(buffer);
@@ -86,11 +74,20 @@ public class Server {
             content.append((char)buffer[j]);
         }
         //System.out.println(content);
-        HttpRequst httpRequst = new HttpRequst();
+        HttpServletRequstImpl httpRequst = new HttpServletRequstImpl();
         Map<String,String> headers = new HashMap<>();
         String[] request = content.toString().split("\n");
+
+        int bodyIndex = -1;
         for (int j = 1; j < request.length; j++) {
             System.out.println(request[j]);
+
+            if(request[j].equals("\r"))
+            {
+                bodyIndex = j;
+                break;
+            }
+
             if(request[j].trim().equals(""))
             {
                 continue;
@@ -99,6 +96,14 @@ public class Server {
             headers.put(key_value[0],key_value[1]);
         }
         httpRequst.setHeaders(headers);
+
+        StringBuilder sb = new StringBuilder();
+        for (int j = bodyIndex+1; j < request.length; j++)
+        {
+            sb.append(request[j]);
+        }
+
+        httpRequst.setAttribute("body",sb);
         if(request.length!=0)
         {
             String resource = request[0];
