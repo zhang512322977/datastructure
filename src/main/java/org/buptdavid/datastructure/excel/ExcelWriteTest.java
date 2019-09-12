@@ -64,7 +64,7 @@ public class ExcelWriteTest {
 
         System.out.println(modelName);
         List<List<String>> datas = new ArrayList<>();
-        String data = doPostTestFour("http://10.211.95.143:9784/dsfcallweb/getServicesByModel.html","modelName="+modelName);
+        String data = doPostTestFour("http:///dsfcallweb/getServicesByModel.html","modelName="+modelName);
 
         System.out.println(data);
         if(data==null||"".equals(data))
@@ -78,7 +78,7 @@ public class ExcelWriteTest {
         {
             String service = objects.getString(i);
 
-            String str = doPostTestFour("http://10.211.95.143:9784/dsfcallweb/getMethodsByService.html","serviceName="+service);
+            String str = doPostTestFour("http:///dsfcallweb/getMethodsByService.html","serviceName="+service);
             //System.out.println(service + ":" + str);
 
             //System.out.println(service);

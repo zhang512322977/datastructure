@@ -21,28 +21,6 @@ import java.util.List;
 
 public class GetServiceDSF
 {
-    public void doGetTestOne() {
-        // 获得Http客户端(可以理解为:你得先有一个浏览器;注意:实际上HttpClient与浏览器是不一样的)
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        // 创建Get请求
-        HttpGet httpGet = new HttpGet("http://localhost:12345/doGetControllerOne");
-
-        // 响应模型
-        CloseableHttpResponse response = null;
-        try {
-            // 由客户端执行(发送)Get请求
-            response = httpClient.execute(httpGet);
-            // 从响应模型中获取响应实体
-            HttpEntity responseEntity = response.getEntity();
-            System.out.println("响应状态为:" + response.getStatusLine());
-            if (responseEntity != null) {
-                System.out.println("响应内容长度为:" + responseEntity.getContentLength());
-                System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public static String doPostTestFour(String url,String params) {
@@ -96,7 +74,7 @@ public class GetServiceDSF
 
     public void getData()
     {
-        String data = doPostTestFour("http://10.211.95.143:9784/dsfcallweb/getServicesByModel.html","modelName=product");
+        String data = doPostTestFour("http:///dsfcallweb/getServicesByModel.html","modelName=product");
 
         JSONArray objects = JSON.parseArray(data);
 
@@ -104,7 +82,7 @@ public class GetServiceDSF
         {
             String service = objects.getString(i);
 
-            String str = doPostTestFour("http://10.211.95.143:9784/dsfcallweb/getMethodsByService.html","serviceName="+service);
+            String str = doPostTestFour("http:///dsfcallweb/getMethodsByService.html","serviceName="+service);
             //System.out.println(service + ":" + str);
 
             System.out.println(service);
@@ -120,8 +98,6 @@ public class GetServiceDSF
             System.out.println();
 
         }
-
-        // String str = doPostTestFour("http://10.211.95.143:9784/dsfcallweb/getMethodsByService.html","serviceName=content.api.ManagerService");
 
     }
     public static void main(String[] args)
@@ -139,7 +115,7 @@ public class GetServiceDSF
         List modelName = new ArrayList();
         CloseableHttpClient httpclient = HttpClients.createDefault();
         // 创建参数队列
-        String url = "http://10.211.95.143:9784/dsfcallweb/dsfCallView.html";
+        String url = "http:///dsfcallweb/dsfCallView.html";
         // 创建httpget.
         HttpGet httpget = new HttpGet(url);
        // System.out.println("executing request " + httpget.getURI());
