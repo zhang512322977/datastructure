@@ -159,15 +159,17 @@ public class HttpServletResponseImpl implements HttpServletResponse
     @Override
     public String getCharacterEncoding()
     {
-        String contentType = respHeaders.get("Content-Type");
+        String contentType = getContentType();
 
         String temp[] = contentType.split(";");
 
         if(temp.length==2)
         {
-            return temp[1];
+            String chartSet = temp[1].split("=")[2];
+
+            return chartSet;
         }
-        return respHeaders.get("");
+        return respHeaders.get("chartSet");
 
     }
 
@@ -215,7 +217,7 @@ public class HttpServletResponseImpl implements HttpServletResponse
     @Override
     public void setCharacterEncoding(String charset)
     {
-
+        respHeaders.put("chartSet",charset);
     }
 
     @Override
@@ -227,7 +229,7 @@ public class HttpServletResponseImpl implements HttpServletResponse
     @Override
     public void setContentType(String type)
     {
-
+        respHeaders.put("Content-Type",type);
     }
 
     @Override

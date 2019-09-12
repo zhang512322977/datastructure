@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.tomcat.v1;
 
+import lombok.ToString;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
@@ -25,6 +27,18 @@ public class HttpServletRequstImpl implements HttpServletRequest
     private String requrl;
 
     private String body;
+
+    @Override
+    public String toString()
+    {
+        final StringBuffer sb = new StringBuffer("HttpServletRequstImpl{");
+        sb.append("headers=").append(headers);
+        sb.append(", protocol='").append(protocol).append('\'');
+        sb.append(", requrl='").append(requrl).append('\'');
+        sb.append(", body='").append(body).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 
     public void setBody(String body)
     {

@@ -1,5 +1,6 @@
 package org.buptdavid.datastructure.tomcat.v1;
 
+import org.buptdavid.datastructure.log.Logger;
 import org.buptdavid.datastructure.springmvc.DispatcherServlet;
 import org.buptdavid.datastructure.tomcat.v1.util.FileUtil;
 
@@ -114,6 +115,7 @@ public class Server {
             httpRequst.setProtocol(type);
             httpRequst.setRequrl(path);
         }
+        System.out.println(httpRequst.toString());
         return  httpRequst;
     }
 
