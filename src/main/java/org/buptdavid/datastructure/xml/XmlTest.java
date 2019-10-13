@@ -18,7 +18,8 @@ public class XmlTest
         String xml = xs.toXML(node);
         System.out.println(xml);
 
-        String xlm = "<node>\n" +
+        String xlm =
+            "<node>\n" +
             "  <nodeId>11111</nodeId>\n" +
             "  <child>\n" +
             "    <nodeId>11111</nodeId>\n" +
