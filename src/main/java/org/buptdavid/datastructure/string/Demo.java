@@ -20,6 +20,13 @@ public class Demo
         System.out.println(getAdaptationsNum("@10001#", 2000));//1万册+
         System.out.println(getAdaptationsNum("@100001#", 2000));//10万册+
         System.out.println(getAdaptationsNum("@101001#", 2000));//10.1万册+
+        System.out.println(getAdaptationsNum("@99999#", 2000));//10.1万册+
+
+        System.out.println(getAdaptationsNum("3#", 13666));//10.1万册+
+
+
+        //System.out.println(String.format("%.1f", 4.0998));
+       // System.out.println(40998 % 10000);
         // System.out.println(100001/100%10);
 
     }
@@ -137,14 +144,14 @@ public class Demo
         {
             double a = tempTotal / 10000.0;
             // 是整万的数不要小数点
-            if (tempTotal / 1000 % 10 == 0)
+            if (tempTotal % 10000 == 0)
             {
                 //1010
-                return String.format("%.0f", a) + DESC_WAN_CE_UNIT
+                return (tempTotal/10000) + DESC_WAN_CE_UNIT
                     + adaptationsResult;
             }
             // 非整万的数要保留小数点一位
-            return String.format("%.1f", a) + DESC_WAN_CE_UNIT
+            return String.format("%.1f", a).replace(".0","") + DESC_WAN_CE_UNIT
                 + adaptationsResult;
         }
         return "";
