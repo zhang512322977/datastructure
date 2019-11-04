@@ -17,16 +17,19 @@ public class QueueWith2Stack<T> implements IQueue<T> {
 		stackNewest = new Stack<T>();
 	}
 
-	public void enqueue(T item) {
+	@Override
+    public void enqueue(T item) {
 		stackNewest.push(item);
 	}
 
-	public T dequeue() {
+	@Override
+    public T dequeue() {
 		shiftStacks();
         return stackOldest.pop();
 	}
 	
-	public T peek() {
+	@Override
+    public T peek() {
 		shiftStacks();
         return stackOldest.peek();
 	}
