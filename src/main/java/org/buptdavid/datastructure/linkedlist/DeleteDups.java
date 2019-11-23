@@ -11,14 +11,15 @@ import org.buptdavid.datastructure.Node;
 public class DeleteDups {
 
 	public static void delete(Node<Integer> head) {
-		if (head == null)
+		if (head == null) {
 			return;
+		}
 
 		Node<Integer> current = head;
 		while (current != null) {
 			Node<Integer> runner = current;
 			while (runner.next != null) {
-				if (runner.next.data == current.data) {
+				if (runner.next.data.equals(current.data)) {
 					runner.next = runner.next.next;
 				} else {
 					runner = runner.next;

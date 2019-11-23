@@ -1,9 +1,5 @@
 package org.buptdavid.datastructure.array;
 
-import org.junit.Test;
-
-import java.util.Arrays;
-
 public class Sort {
 
     public int[] marge(int[] arr1,int[] arr2)
@@ -69,7 +65,6 @@ public class Sort {
         }
     }
 
-    @Test
     public void margeTest()
     {
         int a[] = {1,2,3,2,3,4};

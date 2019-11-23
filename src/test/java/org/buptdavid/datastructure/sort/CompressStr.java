@@ -1,7 +1,6 @@
-package org.buptdavid.datastructure.array;
+package org.buptdavid.datastructure.sort;
 
 import junit.framework.Assert;
-
 import org.junit.Test;
 
 /**
