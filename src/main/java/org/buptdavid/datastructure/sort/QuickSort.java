@@ -39,6 +39,7 @@ public class QuickSort implements ISort {
 	 * @return 基准值数组索引
 	 */
 	private int partition(int[] array, int left, int right){
+		//中间值
 		int pivot = array[(left + right) / 2];
 		int temp;
 		

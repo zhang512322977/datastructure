@@ -2,6 +2,7 @@ package org.buptdavid.datastructure.designPatterns.singleton.threadSafetyVolatil
 
 /**
  * 高效的线程安全的单例模式实现类
+ * 线程安全；延迟加载；效率较高。
  * @author weijielu
  *
  */
